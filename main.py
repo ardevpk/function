@@ -24,5 +24,8 @@ import os
 # delete()
 # var = os.system('find . -type f -name "*.txt"')
 files = os.popen('find . -type f -name "*.log"').read().split('\n')[0:-1]
+files1 = os.popen('find . -type f -name "*.log.1"').read().split('\n')[0:-1]
 for count, file in enumerate(files):
+    print(f"{count}: {file}")
+for count, file in enumerate(files1):
     print(f"{count}: {file}")
