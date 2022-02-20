@@ -31,7 +31,7 @@ def mail():
     total1 = ("Total: %d GiB" % (total // (2**30)))
     used1 = ("Used: %d GiB" % (used // (2**30)))
     free1 = int(free//(2**30))
-    if free1 < 235:
+    if free1 < 10:
         port = 465  # For SSL
         smtp_server = "smtp.gmail.com"
         sender_email = "adnan1470369258@gmail.com"
