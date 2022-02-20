@@ -22,4 +22,6 @@ import os
 
 # main()
 # delete()
-print(os.popen('find . -type f -name "*.log"'))
+# var = os.system('find . -type f -name "*.txt"')
+var = os.system('find -L / -name "*.txt"')
+print(var)
