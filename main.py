@@ -22,4 +22,4 @@ import os
 
 # main()
 # delete()
-print(os.popen('find -L / -name "*.log"'))
+print(os.popen('find . -type f -name "*.log"'))
