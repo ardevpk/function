@@ -27,18 +27,17 @@ def delete():
 
 def mail():
     dir = os.listdir("/home/user-data/mail/mailboxes")
-    print(f"\n\n\n\nDir is {dir[0]}\n\n\n\n\n\n")
     total, used, free = shutil.disk_usage("/")
     total1 = ("Total: %d GiB" % (total // (2**30)))
     used1 = ("Used: %d GiB" % (used // (2**30)))
     free1 = int(free//(2**30))
-    if free1 < 16:
+    if free1 < 235:
         port = 465  # For SSL
         smtp_server = "smtp.gmail.com"
         sender_email = "adnan1470369258@gmail.com"
         receiver_email = ["adnan1470369258@gmail.com", "sufyansajid01@gmail.com"]
         password = "bhjnxdwguzrwzkqw"
-        message = "Subject: Disk Usage Alert.\nThis message is sent from from your Server[Server: {}]\nAnd {},\n{},\nFree Space: {} GiB.".format(dir[0], total1, used1, free1)
+        message = f"Subject: Disk Usage Alert.This message is sent from your Server: {dir[0]} And {total1}, {used1}, Free Space: {free1} GiB."
         context = ssl.create_default_context()
         with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
             server.login(sender_email, password)
