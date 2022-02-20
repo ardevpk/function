@@ -1,7 +1,8 @@
 import glob
 import os
 
-cwd = os.getcwd()
+# cwd = os.getcwd()
+cwd = "/"
 # cwdfiles = os.listdir()
 
 def delete():
