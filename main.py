@@ -56,6 +56,7 @@ while True:
     print(f"\n{i}: Run.. On {d1}\n")
     delete()
     print("Thanks For Using The Function...\n")
+    mail()
     i+=1
     sleep(86400)
 
