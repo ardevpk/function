@@ -12,7 +12,7 @@ for count, file in enumerate(files):
 for count, file in enumerate(files1):
     print(f"{count}: {file}")
     print(f"{count}: {file}")
-    if os.path.exists(file) and os.path.splitext(file)[-1] == '.log.1':
+    if os.path.exists(file) and '.log.1' in file.split('/')[-1]:
         os.remove(file)
         print(f"File removed: {file}")
     else:
