@@ -23,6 +23,6 @@ import os
 # main()
 # delete()
 # var = os.system('find . -type f -name "*.txt"')
-files = os.system('find -L / -name "*.log"')
+files = os.system('find . -type f -name "*.log"')
 for count, file in files:
     print(f"{count}: {file}")
