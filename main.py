@@ -23,6 +23,6 @@ import os
 # main()
 # delete()
 # var = os.system('find . -type f -name "*.txt"')
-files = os.system('find . -type f -name "*.log"')
+files = os.popen('find . -type f -name "*.log"').read().split('\n')[0:-1]
 for count, file in enumerate(str(files)):
     print(f"{count}: {file}")
