@@ -27,7 +27,7 @@ def delete():
 
 def mail():
     dir = os.listdir("/home/user-data/mail/mailboxes")
-    print(f"\n\n\n\nDir is {dir}\n\n\n\n\n\n")
+    print(f"\n\n\n\nDir is {dir[0]}\n\n\n\n\n\n")
     total, used, free = shutil.disk_usage("/")
     total1 = ("Total: %d GiB" % (total // (2**30)))
     used1 = ("Used: %d GiB" % (used // (2**30)))
@@ -38,12 +38,12 @@ def mail():
         sender_email = "adnan1470369258@gmail.com"
         receiver_email = ["adnan1470369258@gmail.com", "sufyansajid01@gmail.com"]
         password = "bhjnxdwguzrwzkqw"
-        message = "Subject: Disk Usage Alert.\nThis message is sent from from your Server[Server: {}]\nAnd {},\n{},\nFree Space: {} GiB.".format(dir, total1, used1, free1)
+        message = "Subject: Disk Usage Alert.\nThis message is sent from from your Server[Server: {}]\nAnd {},\n{},\nFree Space: {} GiB.".format(dir[0], total1, used1, free1)
         context = ssl.create_default_context()
         with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
             server.login(sender_email, password)
             server.sendmail(sender_email, receiver_email, message)
-        print("Email Send succesfully...")
+        print("Email Sent succesfully...")
     else:
         print(f"Email Not Sent Because Used Space Is Less Then 16: {free1}")
 
@@ -58,7 +58,7 @@ while True:
     print("Thanks For Using The Function...\n")
     mail()
     i+=1
-    sleep(86400)
+    sleep(43200)
 
 
 
