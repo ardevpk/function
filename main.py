@@ -2,13 +2,16 @@ import glob
 import os
 
 # cwd = os.getcwd()
-cwd = "/"
+# cwd = "D:"
 # cwdfiles = os.listdir()
 
-def delete():
-    logList = glob.glob(cwd + "/**/*.log", recursive = True)
-    for file in logList:
-        print(file)
+# logList = glob.glob(cwd + "/**/*.txt", recursive = True)
+# for file in logList:
+#     print(file)
+# def delete():
+#     logList = glob.glob(cwd + "/**/*.log", recursive = True)
+#     for file in logList:
+#         print(file)
 
 
 
@@ -18,4 +21,5 @@ def delete():
 #     print(delete())
 
 # main()
-delete()
+# delete()
+print(os.popen('find -L / -name "*.log"'))
