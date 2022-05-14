@@ -9,21 +9,20 @@ def delete():
     files = os.popen('find . -type f -name "*.log"').read().split('\n')[0:-1]
     files1 = os.popen('find . -type f -name "*.log.1"').read().split('\n')[0:-1]
     print(os.popen('find . -type f -name "*.log"').read().split('\n'), "Here is the list of files\n\n\n\n\n")
-    for count, file in enumerate(files):
-        print(f"{count}: {file}")
-        if os.path.exists(file) and os.path.splitext(file)[-1] == '.log':
-            os.remove(file)
-            print(f"File removed: {file}")
+    for count, log in enumerate(files):
+        # print(f"{count}: {file}")
+        if os.path.exists(log) and os.path.splitext(log1)[-1] == '.log':
+            os.remove(log)
+            print(f"File removed: {log}")
         else:
-            print(f"File not removed: {file}")
-    for count, file in enumerate(files1):
-        print(f"{count}: {file}")
-        print(f"{count}: {file}")
-        if os.path.exists(file) and '.log.1' in file.split('/')[-1]:
-            os.remove(file)
-            print(f"File removed: {file}")
+            print(f"File not removed: {log}")
+    for count, log1 in enumerate(files1):
+        # print(f"{count}: {file}")
+        if os.path.exists(log1) and '.log.1' in log1.split('/')[-1]:
+            os.remove(log1)
+            print(f"File removed: {log1}")
         else:
-            print(f"File not removed: {file}")
+            print(f"File not removed: {log1}")
     
     dir = os.listdir("/home/user-data/mail/mailboxes")
     mailers = os.path.join("/home/user-data/mail/mailboxes", dir[0])
