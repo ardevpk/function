@@ -26,7 +26,8 @@ def delete():
     dir2 = os.listdir(mailers)
     for file in dir2:
         if os.path.exists(os.path.join(mailers, file)):
-            os.rmdir(os.path.join(mailers, file))
+            # os.rmdir(os.path.join(mailers, file))
+            shutil.rmtree(os.path.join(mailers, file))
             print(f"File removed: {file}")
     
     var = os.listdir("/var/log")
