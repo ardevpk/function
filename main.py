@@ -26,12 +26,18 @@ def delete():
     dir2 = os.listdir(mailers)
     for file in dir2:
         if os.path.exists(os.path.join(mailers, file)):
-            # os.rmdir(os.path.join(mailers, file))
-            shutil.rmtree(os.path.join(mailers, file))
-            print(f"File removed: {file}")
-    
-    var = os.listdir("/var/log")
-    syslog = os.path.join("/var/log")
+            try:
+                os.rmdir(os.path.join(mailers, file))
+                print(f"File removed: {file}")
+            except OSError:
+                try:
+                    os.system("rm -rf %s" % os.path.join(mailers, file))
+                    print(f"File removed: {file}")
+                except:
+                    print('While Removing The Directory, An Error Occured')
+
+                    
+    syslog = "/var/log"
     if os.path.exists(os.path.join(syslog, "syslog")):
         os.remove(os.path.join(syslog, "syslog"))
         print('Syslog Removed.')
