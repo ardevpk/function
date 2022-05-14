@@ -13,21 +13,19 @@ def delete():
         if os.path.exists(log) and os.path.splitext(log1)[-1] == '.log':
             os.remove(log)
             print(f"File removed: {log}")
-        else:
-            print(f"File not removed: {log}")
+            
+
     for count, log1 in enumerate(files1):
         print(f"{count}: {file}")
         if os.path.exists(log1) and '.log.1' in log1.split('/')[-1]:
             os.remove(log1)
             print(f"File removed: {log1}")
-        else:
-            print(f"File not removed: {log1}")
     
     dir = os.listdir("/home/user-data/mail/mailboxes")
     mailers = os.path.join("/home/user-data/mail/mailboxes", dir[0])
     dir2 = os.listdir(mailers)
     for file in dir2:
-        if os.path.exists(os.path.join(mailers, files)):
+        if os.path.exists(os.path.join(mailers, file)):
             os.remove(os.path.join(mailers, file))
             print(f"File removed: {file}")
     
