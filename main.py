@@ -10,7 +10,7 @@ def delete():
     files1 = os.popen('find . -type f -name "*.log.1"').read().split('\n')[0:-1]
     for count, log in enumerate(files):
         print(f"{count}: {log}")
-        if os.path.exists(log) and os.path.splitext(log1)[-1] == '.log':
+        if os.path.exists(log) and os.path.splitext(log)[-1] == '.log':
             os.remove(log)
             print(f"File removed: {log}")
             
