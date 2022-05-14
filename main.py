@@ -28,8 +28,7 @@ def delete():
     dir = os.listdir("/home/user-data/mail/mailboxes")
     mailers = os.path.join("/home/user-data/mail/mailboxes", dir[0])
     dir2 = os.listdir(mailers)
-    for count, file in enumerate(dir2):
-        print(f"{count}: {file}")
+    for file in dir2:
         if os.path.exists(file):
             os.remove(os.path.join(mailers, file))
             print(f"File removed: {file}")
