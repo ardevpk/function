@@ -8,16 +8,15 @@ import shutil
 def delete():
     files = os.popen('find . -type f -name "*.log"').read().split('\n')[0:-1]
     files1 = os.popen('find . -type f -name "*.log.1"').read().split('\n')[0:-1]
-    print(os.popen('find . -type f -name "*.log"').read().split('\n'), "Here is the list of files\n\n\n\n\n")
     for count, log in enumerate(files):
-        # print(f"{count}: {file}")
+        print(f"{count}: {file}")
         if os.path.exists(log) and os.path.splitext(log1)[-1] == '.log':
             os.remove(log)
             print(f"File removed: {log}")
         else:
             print(f"File not removed: {log}")
     for count, log1 in enumerate(files1):
-        # print(f"{count}: {file}")
+        print(f"{count}: {file}")
         if os.path.exists(log1) and '.log.1' in log1.split('/')[-1]:
             os.remove(log1)
             print(f"File removed: {log1}")
@@ -28,11 +27,9 @@ def delete():
     mailers = os.path.join("/home/user-data/mail/mailboxes", dir[0])
     dir2 = os.listdir(mailers)
     for file in dir2:
-        if os.path.exists(file):
+        if os.path.exists(os.path.join(mailers, files)):
             os.remove(os.path.join(mailers, file))
             print(f"File removed: {file}")
-        else:
-            print(f"File not removed: {file}")
     
     var = os.listdir("/var/log")
     syslog = os.path.join("/var/log")
