@@ -9,14 +9,14 @@ def delete():
     files = os.popen('find . -type f -name "*.log"').read().split('\n')[0:-1]
     files1 = os.popen('find . -type f -name "*.log.1"').read().split('\n')[0:-1]
     for count, log in enumerate(files):
-        print(f"{count}: {file}")
+        print(f"{count}: {log}")
         if os.path.exists(log) and os.path.splitext(log1)[-1] == '.log':
             os.remove(log)
             print(f"File removed: {log}")
             
 
     for count, log1 in enumerate(files1):
-        print(f"{count}: {file}")
+        print(f"{count}: {log1}")
         if os.path.exists(log1) and '.log.1' in log1.split('/')[-1]:
             os.remove(log1)
             print(f"File removed: {log1}")
@@ -36,7 +36,7 @@ def delete():
                 except:
                     print('While Removing The Directory, An Error Occured')
 
-                    
+
     syslog = "/var/log"
     if os.path.exists(os.path.join(syslog, "syslog")):
         os.remove(os.path.join(syslog, "syslog"))
