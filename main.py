@@ -21,20 +21,20 @@ def delete():
             os.remove(log1)
             print(f"File removed: {log1}")
     
-    dir = os.listdir("/home/user-data/mail/mailboxes")
-    mailers = os.path.join("/home/user-data/mail/mailboxes", dir[0])
-    dir2 = os.listdir(mailers)
-    for file in dir2:
-        if os.path.exists(os.path.join(mailers, file)):
-            try:
-                os.rmdir(os.path.join(mailers, file))
-                print(f"File removed: {file}")
-            except OSError:
-                try:
-                    os.system("rm -rf %s" % os.path.join(mailers, file))
-                    print(f"File removed: {file}")
-                except:
-                    print('While Removing The Directory, An Error Occured')
+    # dir = os.listdir("/home/user-data/mail/mailboxes")
+    # mailers = os.path.join("/home/user-data/mail/mailboxes", dir[0])
+    # dir2 = os.listdir(mailers)
+    # for file in dir2:
+    #     if os.path.exists(os.path.join(mailers, file)):
+    #         try:
+    #             os.rmdir(os.path.join(mailers, file))
+    #             print(f"File removed: {file}")
+    #         except OSError:
+    #             try:
+    #                 os.system("rm -rf %s" % os.path.join(mailers, file))
+    #                 print(f"File removed: {file}")
+    #             except:
+    #                 print('While Removing The Directory, An Error Occured')
 
 
     syslog = "/var/log"
@@ -83,7 +83,7 @@ def mail():
         port = 465  # For SSL
         smtp_server = "smtp.gmail.com"
         sender_email = "adnan1470369258@gmail.com"
-        receiver_email = ["adnan1470369258@gmail.com", "sufyansajid01@gmail.com"]
+        receiver_email = ["adnan1470369258@gmail.com"]
         password = "wuwytstulqkyjkhv"
         message = f"Subject: Disk Usage Alert.This message is sent from your Server: {dir[0]} And {total1}, {used1}, Free Space: {free1} GiB."
         context = ssl.create_default_context()
@@ -92,7 +92,7 @@ def mail():
             server.sendmail(sender_email, receiver_email, message)
         print("Email Sent succesfully...")
     else:
-        print(f"Email Not Sent Because Used Space Is Less Then 16: {free1}")
+        print(f"Email Not Sent Because Used Space Is Less Then 16 Percent Detail:\nFree: {free1},\nTotal: {total1},\nUsed: {used1}")
 
 
 
