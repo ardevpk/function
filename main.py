@@ -139,7 +139,7 @@ def server_up():
     sender_email = "adnan1470369258@gmail.com"
     receiver_email = ["adnan1470369258@gmail.com"]
     password = "wuwytstulqkyjkhv"
-    message = f"Subject: Disk Usage Alert.This message is sent from your Server: {dir[0]} And This Server Is Up And Running. Details: \n{total1},\n{used1},\nFree Space: {free1} GiB."
+    message = f"Subject: Disk Usage Alert.This message is sent from your Server: {dir[0]} And This Server Is Up And Running. Details: {total1}, {used1}, Free Space: {free1} GiB."
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
         server.login(sender_email, password)
