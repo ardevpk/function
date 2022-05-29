@@ -130,12 +130,16 @@ def mail():
 
 def server_up():
     dir = os.listdir("/home/user-data/mail/mailboxes")
+    total, used, free = shutil.disk_usage("/")
+    total1 = ("Total: %d GiB" % (total // (2**30)))
+    used1 = ("Used: %d GiB" % (used // (2**30)))
+    free1 = int(free//(2**30))
     port = 465  # For SSL
     smtp_server = "smtp.gmail.com"
     sender_email = "adnan1470369258@gmail.com"
     receiver_email = ["adnan1470369258@gmail.com"]
     password = "wuwytstulqkyjkhv"
-    message = f"Subject: Disk Usage Alert.This message is sent from your Server: {dir[0]} And This Server Is Up And Running."
+    message = f"Subject: Disk Usage Alert.This message is sent from your Server: {dir[0]} And This Server Is Up And Running. Details: \n{total1},\n{used1},\nFree Space: {free1} GiB."
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
         server.login(sender_email, password)
