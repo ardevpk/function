@@ -88,17 +88,17 @@ def usage():
 
 
 
-# def check_reboot():
-#     with open('info.json', 'r') as f:
-#         info = json.load(f)
-#     interval = int(time.time() - info['time'])
-#     print('Interval: ', interval)
-#     if interval > 1200:
-#         with open('info.json', 'w') as f:
-#             json.dump({'time': time.time()}, f)
-#         return True
-#     else:
-#         return False
+def check_reboot():
+    with open('info.json', 'r') as f:
+        info = json.load(f)
+    interval = int(time.time() - info['time'])
+    print('Interval: ', interval)
+    if interval > 1200:
+        with open('info.json', 'w') as f:
+            json.dump({'time': time.time()}, f)
+        return True
+    else:
+        return False
 
 
 def send_mail(message):
@@ -121,19 +121,18 @@ def mail():
         message = f"Subject: Disk Usage. Server: {context.get('dir')} And {context.get('total')}, {context.get('used')}, Free Space: {context.get('free')} GB."
         send_mail(message)
         sleep(4)
-        # reboot = check_reboot()
-        # if reboot:
-        #     print('Rebooting...')
-        #     message = f"Subject: Disk Usage. Server: {context.get('dir')}, Restarting."
-        #     send_mail(message)
-        #     sleep(4)
-        #     os.system('sudo reboot')
-        # else:
-        #     print('Not Rebooting.')
-        #     message = f"Subject: Disk Usage. Server: {context.get('dir')}, Not Restarted."
-        #     send_mail(message)
-        #     sleep(4)
-        os.system('sudo reboot')
+        reboot = check_reboot()
+        if reboot:
+            print('Rebooting...')
+            message = f"Subject: Disk Usage. Server: {context.get('dir')}, Restarting."
+            send_mail(message)
+            sleep(4)
+            os.system('sudo reboot')
+        else:
+            print('Not Rebooting.')
+            message = f"Subject: Disk Usage. Server: {context.get('dir')}, Not Restarted."
+            send_mail(message)
+            sleep(4)
 
 
 
