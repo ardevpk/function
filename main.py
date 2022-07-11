@@ -1,8 +1,6 @@
-import os
 from time import sleep
 from datetime import datetime
-import smtplib, ssl
-import shutil
+import smtplib, ssl, os, shutil, json, time
 
 
 def delete():
@@ -73,73 +71,41 @@ def delete():
 
 
 
-def mail():
-    dir = os.listdir("/home/user-data/mail/mailboxes")
+def usage():
+    context = {}
     total, used, free = shutil.disk_usage("/")
-    total1 = ("Total: %d GiB" % (total // (2**30)))
-    used1 = ("Used: %d GiB" % (used // (2**30)))
+    total1 = ("Total: %d GB" % (total // (2**30)))
+    used1 = ("Used: %d GB" % (used // (2**30)))
     free1 = int(free//(2**30))
-    if free1 < 10:
-        port = 465  # For SSL
-        smtp_server = "smtp.gmail.com"
-        sender_email = "adnan1470369258@gmail.com"
-        receiver_email = ["adnan1470369258@gmail.com"]
-        password = "wuwytstulqkyjkhv"
-        message = f"Subject: Disk Usage Alert.This message is sent from your Server: {dir[0]} And {total1}, {used1}, Free Space: {free1} GiB. And The Server Is Restarting."
-        context = ssl.create_default_context()
-        with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
-            server.login(sender_email, password)
-            server.sendmail(sender_email, receiver_email, message)
-        print("Email Sent succesfully...")
-        print("Restarting")
-        os.system('reboot')
+    dir = os.listdir("/home/user-data/mail/mailboxes")
+    context.update({
+        "total": total1,
+        "used": used1,
+        "free": free1,
+        'dir': dir[0]
+    })
+    return context
+
+
+
+def check_reboot():
+    with open('info.json', 'r') as f:
+        info = json.load(f)
+    interval = int(time.time() - info['time'])
+    if interval > 1200:
+        with open('info.json', 'w') as f:
+            json.dump({'time': time.time()}, f)
+        return True
     else:
-        print(f"Email Not Sent Because Used Space Is Less Then 16 Percent Detail:\nFree: {free1},\n{total1},\n{used1}")
+        return False
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def server_up():
-    dir = os.listdir("/home/user-data/mail/mailboxes")
-    total, used, free = shutil.disk_usage("/")
-    total1 = ("Total: %d GiB" % (total // (2**30)))
-    used1 = ("Used: %d GiB" % (used // (2**30)))
-    free1 = int(free//(2**30))
+def send_mail(message):
     port = 465  # For SSL
     smtp_server = "smtp.gmail.com"
     sender_email = "adnan1470369258@gmail.com"
     receiver_email = ["adnan1470369258@gmail.com"]
     password = "wuwytstulqkyjkhv"
-    message = f"Subject: Disk Usage Alert.This message is sent from your Server: {dir[0]} And This Server Is Up And Running. Details: {total1}, {used1}, Free Space: {free1} GiB."
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
         server.login(sender_email, password)
@@ -148,6 +114,14 @@ def server_up():
 
 
 
+def mail():
+    context = usage()
+    if context.get('free') < 10:
+        message = f"Subject: Disk Usage. Server: {context.get('dir')} And {context.get('total')}, {context.get('used')}, Free Space: {context.get('free')} GB, Restarting."
+        send_mail(message)
+        if check_reboot():
+            sleep(4)
+            os.system('sudo reboot')
 
 
 
@@ -155,8 +129,11 @@ def server_up():
 
 
 
-
-
+def server_up():
+    context = usage()
+    message = f"Subject: Disk Usage Reboot, Server: {context.get('dir')} And {context.get('total')}, {context.get('used')}, Free Space: {context.get('free')} GB, Restarted."
+    send_mail(message)
+    sleep(4)
 
 
 
