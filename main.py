@@ -89,11 +89,12 @@ def usage():
 
 
 def check_reboot():
-    with open('info.json', 'r') as f:
+    with open('./info.json', 'r') as f:
         info = json.load(f)
     interval = int(time.time() - info['time'])
+    print('Interval: ', interval)
     if interval > 1200:
-        with open('info.json', 'w') as f:
+        with open('./info.json', 'w') as f:
             json.dump({'time': time.time()}, f)
         return True
     else:
@@ -117,21 +118,27 @@ def send_mail(message):
 def mail():
     context = usage()
     if context.get('free') < 10:
-        message = f"Subject: Disk Usage. Server: {context.get('dir')} And {context.get('total')}, {context.get('used')}, Free Space: {context.get('free')} GB, Restarting."
+        message = f"Subject: Disk Usage. Server: {context.get('dir')} And {context.get('total')}, {context.get('used')}, Free Space: {context.get('free')} GB."
         send_mail(message)
+        sleep(4)
         if check_reboot():
+            print('Rebooting...')
+            message = f"Subject: Disk Usage. Server: {context.get('dir')}, Restarting."
+            send_mail(message)
             sleep(4)
             os.system('sudo reboot')
-
-
-
+        else:
+            print('Not Rebooting.')
+            message = f"Subject: Disk Usage. Server: {context.get('dir')}, Not Restarted."
+            send_mail(message)
+            sleep(4)
 
 
 
 
 def server_up():
     context = usage()
-    message = f"Subject: Disk Usage Reboot, Server: {context.get('dir')} And {context.get('total')}, {context.get('used')}, Free Space: {context.get('free')} GB, Restarted."
+    message = f"Subject: Disk Usage Reboot, Server: {context.get('dir')} And {context.get('total')}, {context.get('used')}, Free Space: {context.get('free')} GB, Cron Done."
     send_mail(message)
     sleep(4)
 
