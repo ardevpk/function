@@ -89,7 +89,8 @@ def usage():
 
 
 def check_reboot():
-    with open('info.json', 'r') as f:
+    cwd = os.getcwd()
+    with open(os.path.join(cwd, 'info.json'), 'r') as f:
         info = json.load(f)
     interval = int(time.time() - info['time'])
     print('Interval: ', interval)
