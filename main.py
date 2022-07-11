@@ -121,7 +121,8 @@ def mail():
         message = f"Subject: Disk Usage. Server: {context.get('dir')} And {context.get('total')}, {context.get('used')}, Free Space: {context.get('free')} GB."
         send_mail(message)
         sleep(4)
-        if check_reboot():
+        reboot = check_reboot()
+        if reboot:
             print('Rebooting...')
             message = f"Subject: Disk Usage. Server: {context.get('dir')}, Restarting."
             send_mail(message)
