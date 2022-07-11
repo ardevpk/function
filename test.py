@@ -7,7 +7,7 @@ import json, time
 
 # time.sleep(5)
 
-with open('info.json', 'r') as f:
+with open('./info.json', 'r') as f:
     info = json.load(f)
 
 
